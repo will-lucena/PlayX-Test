@@ -5,30 +5,18 @@ using UnityEngine;
 
 public class TreeAnimation : MonoBehaviour
 {
-    public static Action onEndAnimation;
-    
-    [SerializeField] private AnimationCurve linearCurve;
-    [SerializeField] private AnimationCurve popupCurve;
-    [SerializeField] private AnimationCurve bounceCurve;
-    
-    [Header ("Target size")]
-    [SerializeField] private Vector3 finalPosition;
-    [Header ("Animation duration")]
-    [SerializeField] private float duration;
-    
-    private Vector3 initialPosition;
-
+    //*
     private void OnEnable()
     {
-        TreeController.onStartAnimate += updateInitialPosition;
+        TreeController.onAnimate += TranslateObject;
     }
 
     private void OnDisable()
     {
-        TreeController.onStartAnimate -= updateInitialPosition;
+        TreeController.onAnimate -= TranslateObject;
     }
 
-    private IEnumerator TranslateObject (AnimationCurve curve)
+    private IEnumerator TranslateObject (Vector3 initialPosition, Vector3 finalPosition, float duration, AnimationCurve curve)
     {
         float i = 0;
         float rate = 1 / duration;
@@ -37,30 +25,14 @@ public class TreeAnimation : MonoBehaviour
             transform.localPosition = Vector3.Lerp (initialPosition, finalPosition, curve.Evaluate (i));
             yield return null;
         }
-        onEndAnimation?.Invoke();
+
+        yield return true;
     }
 
-    public void startAnimation()
+    public void fallAnimation(Vector3 initialPosition, Vector3 finalPosition)
     {
         StopAllCoroutines();
-        StartCoroutine(TranslateObject(linearCurve));
+        //StartCoroutine(TranslateObject(linearCurve, initialPosition, finalPosition));
     }
-
-    public void bounceAnimation()
-    {
-        StopAllCoroutines();
-        StartCoroutine(TranslateObject(bounceCurve));
-    }
-
-    public void popupAnimation()
-    {
-        StopAllCoroutines();
-        StartCoroutine(TranslateObject(popupCurve));
-    }
-    
-    public void updateInitialPosition(Vector3 pos)
-    {
-        initialPosition = pos;
-        startAnimation();
-    }
+    /**/
 }

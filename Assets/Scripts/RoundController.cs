@@ -50,7 +50,9 @@ public class RoundController : MonoBehaviour
             callParticles();
         }
     }
+    
     /**/
+    public static Action<Transform> onTreeDestroy;
 
     [Range(1, 10)] [SerializeField] 
     private int currentLevel;
@@ -58,17 +60,50 @@ public class RoundController : MonoBehaviour
     private int baseNumberOFTrees;
     [Range(2, 20)] [SerializeField]
     private int treeHeightRange;
+    [SerializeField] private ParticleSystem particles;
+    [SerializeField] private TreeController _mainTree;
+    [SerializeField] private TreeController _bufferTree;
+    [SerializeField] private Vector3 spaceBetweenTrees;
+
+    private TreeController currentTarget;
     
-    [SerializeField] private GameObject _currentTree;
-    private GameObject _bufferTree;
+    private void OnEnable()
+    {
+        TreeController.onDestroy += translateToNextTree;
+    }
+
+    private void OnDisable()
+    {
+        TreeController.onDestroy -= translateToNextTree;
+    }
 
     private void Start()
     {
-        _currentTree.GetComponent<TreeController>().initTree(Random.Range(10, treeHeightRange));
+        _mainTree.gameObject.SetActive(true);
+        _mainTree.initTree(Random.Range(1, treeHeightRange));
+        currentTarget = _mainTree;
     }
 
-    private int numberOfTrees()
+    public void enableParticles()
     {
-        return currentLevel * baseNumberOFTrees;
+        if (particles.isEmitting)
+        {
+            particles.Stop();
+        }
+        particles.Play();
     }
+
+    public void translateToNextTree()
+    {
+        GameObject oldTarget = currentTarget.gameObject;
+        currentTarget = currentTarget == _mainTree ? _bufferTree : _mainTree;
+        
+        currentTarget.gameObject.SetActive(true);
+        currentTarget.transform.position = _mainTree.transform.position + spaceBetweenTrees;
+        currentTarget.initTree(Random.Range(1, treeHeightRange));
+        oldTarget.gameObject.SetActive(false);
+        
+        //onTreeDestroy?.Invoke(currentTarget.transform);
+    }
+    
 }
