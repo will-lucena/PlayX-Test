@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TreeAnimation : MonoBehaviour
 {
-    //*
     private void OnEnable()
     {
         TreeController.onAnimate += TranslateObject;
@@ -25,14 +24,5 @@ public class TreeAnimation : MonoBehaviour
             transform.localPosition = Vector3.Lerp (initialPosition, finalPosition, curve.Evaluate (i));
             yield return null;
         }
-
-        yield return true;
     }
-
-    public void fallAnimation(Vector3 initialPosition, Vector3 finalPosition)
-    {
-        StopAllCoroutines();
-        //StartCoroutine(TranslateObject(linearCurve, initialPosition, finalPosition));
-    }
-    /**/
 }

@@ -40,6 +40,7 @@ public class UpdateCameraFocus : MonoBehaviour
 
     public void changeFocus(Transform target)
     {
+        Debug.Log("update");
         StopAllCoroutines();
         StartCoroutine(TranslateCamera(target));
     }

@@ -61,27 +61,17 @@ public class RoundController : MonoBehaviour
     [Range(2, 20)] [SerializeField]
     private int treeHeightRange;
     [SerializeField] private ParticleSystem particles;
-    [SerializeField] private TreeController _mainTree;
-    [SerializeField] private TreeController _bufferTree;
     [SerializeField] private Vector3 spaceBetweenTrees;
+    [SerializeField] private Transform treesParent;
+    [SerializeField] private GameObject treePrefab;
 
-    private TreeController currentTarget;
-    
-    private void OnEnable()
-    {
-        TreeController.onDestroy += translateToNextTree;
-    }
-
-    private void OnDisable()
-    {
-        TreeController.onDestroy -= translateToNextTree;
-    }
+    private int currentTreeIndex;
+    private Queue<GameObject> trees;
 
     private void Start()
     {
-        _mainTree.gameObject.SetActive(true);
-        _mainTree.initTree(Random.Range(1, treeHeightRange));
-        currentTarget = _mainTree;
+        trees = new Queue<GameObject>();
+        initTree();
     }
 
     public void enableParticles()
@@ -95,15 +85,35 @@ public class RoundController : MonoBehaviour
 
     public void translateToNextTree()
     {
-        GameObject oldTarget = currentTarget.gameObject;
-        currentTarget = currentTarget == _mainTree ? _bufferTree : _mainTree;
-        
-        currentTarget.gameObject.SetActive(true);
-        currentTarget.transform.position = _mainTree.transform.position + spaceBetweenTrees;
-        currentTarget.initTree(Random.Range(1, treeHeightRange));
-        oldTarget.gameObject.SetActive(false);
-        
-        //onTreeDestroy?.Invoke(currentTarget.transform);
+        Destroy(trees.Dequeue());
+        initTree();
     }
+    
+    private void initTree()
+    {
+        GameObject go = Instantiate(treePrefab, treesParent);
+        TreeController tree = go.GetComponent<TreeController>();
+        tree.initTree(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightRange));
+        tree.onDestroy += translateToNextTree;
+        tree.onAnimationEnd += translateCamera;
+        trees.Enqueue(go);
+        currentTreeIndex++;
+    }
+
+    public void onHitClick()
+    {
+        trees.Peek().GetComponent<TreeController>().dequeueTrunk();
+    }
+
+    public void onSpawnClick()
+    {
+        initTree();
+    }
+
+    private void translateCamera(Transform target)
+    {
+        onTreeDestroy?.Invoke(target);
+    }
+    
     
 }

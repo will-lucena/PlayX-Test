@@ -4,12 +4,13 @@
     <list default="true" id="b9853124-e7d4-457d-802a-0f48db17a733" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/trunk Variant.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/trunk Variant.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Tree simulation.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Tree simulation.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnimationSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnimationSO.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TreeAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TreeAnimation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,12 +22,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnimationSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TreeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoundController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TreeAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TrunkAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TestScript.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Trunk.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -37,12 +38,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/RoundManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TrunkAnimation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/TreeAnimation.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AnimationSO.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TreeAnimation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" />
       </list>
     </option>
   </component>
@@ -98,7 +100,10 @@
       <workItem from="1577405187971" duration="4791000" />
       <workItem from="1577556624794" duration="33000" />
       <workItem from="1577556684418" duration="11129000" />
-      <workItem from="1577634420296" duration="13982000" />
+      <workItem from="1577634420296" duration="14190000" />
+      <workItem from="1577669341615" duration="16000" />
+      <workItem from="1577669380708" duration="2908000" />
+      <workItem from="1577718179775" duration="14462000" />
     </task>
     <servers />
   </component>
