@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TreeAnimation : MonoBehaviour
 {
+    #region Lifecycle methods
+
     private void OnEnable()
     {
         TreeController.onAnimate += TranslateObject;
@@ -12,6 +14,10 @@ public class TreeAnimation : MonoBehaviour
     {
         TreeController.onAnimate -= TranslateObject;
     }
+
+    #endregion
+
+    #region Delegates response methods
 
     private IEnumerator TranslateObject (Vector3 initialPosition, Vector3 finalPosition, float duration, AnimationCurve curve)
     {
@@ -23,4 +29,6 @@ public class TreeAnimation : MonoBehaviour
             yield return null;
         }
     }
+
+    #endregion
 }

@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class TreeController : MonoBehaviour
 {
+    #region Delagates
+
     public static Func<Vector3, Vector3, float, AnimationCurve, IEnumerator> onAnimate;
     public Action onDestroy;
     public Action<Transform> onAnimationEnd;
     public static Action<Vector3> initParticles;
+
+    #endregion
     
+    #region Serialized variables
+
     [SerializeField] private GameObject trunkPrefab;
     [SerializeField] private float trunkOffset;
     [SerializeField] private AnimationDefinition popup;
@@ -17,7 +23,52 @@ public class TreeController : MonoBehaviour
     [SerializeField] private AnimationDefinition collapse;
     [SerializeField] private float baseOffset;
 
+    #endregion
+
+    #region Private variables
+
     private Queue<GameObject> trunks;
+
+    #endregion
+    
+    #region Coroutines
+
+    private IEnumerator growthAnimation(int height)
+        {
+            if (onAnimate != null)
+            {
+                Vector3 initialPosition = new Vector3(transform.localPosition.x, -trunkOffset * height, transform.localPosition.z);
+                Vector3 finalPosition = new Vector3(transform.localPosition.x, baseOffset, transform.localPosition.z);
+                yield return onAnimate.Invoke(initialPosition, finalPosition, popup.durattion,
+                    popup.curve);
+            }
+            yield return bounceAnimation();
+        }
+    
+        private IEnumerator bounceAnimation()
+        {
+            if (onAnimate != null)
+            {
+                Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 2f, transform.localPosition.z);
+                yield return onAnimate.Invoke(transform.localPosition, finalPosition, bounce.durattion,
+                    bounce.curve);
+            }
+            onAnimationEnd?.Invoke(transform);
+        }
+    
+        private IEnumerator collapseAnimation()
+        {
+            RoundController.updateButtonState?.Invoke(false);
+            if (onAnimate != null)
+            {
+                Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - trunkOffset, transform.localPosition.z);
+                yield return onAnimate.Invoke(transform.localPosition, finalPosition, collapse.durattion,
+                    collapse.curve);
+            }
+            RoundController.updateButtonState?.Invoke(true);
+        }
+
+    #endregion
     
     public void init(Vector3 position, int height)
     {
@@ -32,41 +83,6 @@ public class TreeController : MonoBehaviour
         }
         StopAllCoroutines();
         StartCoroutine(growthAnimation(height));
-    }
-
-    private IEnumerator growthAnimation(int height)
-    {
-        if (onAnimate != null)
-        {
-            Vector3 initialPosition = new Vector3(transform.localPosition.x, -trunkOffset * height, transform.localPosition.z);
-            Vector3 finalPosition = new Vector3(transform.localPosition.x, baseOffset, transform.localPosition.z);
-            yield return onAnimate.Invoke(initialPosition, finalPosition, popup.durattion,
-                popup.curve);
-        }
-        yield return bounceAnimation();
-    }
-
-    private IEnumerator bounceAnimation()
-    {
-        if (onAnimate != null)
-        {
-            Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 2f, transform.localPosition.z);
-            yield return onAnimate.Invoke(transform.localPosition, finalPosition, bounce.durattion,
-                bounce.curve);
-        }
-        onAnimationEnd?.Invoke(transform);
-    }
-
-    private IEnumerator collapseAnimation()
-    {
-        RoundController.updateButtonState?.Invoke(false);
-        if (onAnimate != null)
-        {
-            Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - trunkOffset, transform.localPosition.z);
-            yield return onAnimate.Invoke(transform.localPosition, finalPosition, collapse.durattion,
-                collapse.curve);
-        }
-        RoundController.updateButtonState?.Invoke(true);
     }
     
     public void dequeueTrunk()

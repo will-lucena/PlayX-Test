@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HudController : MonoBehaviour
 {
+    #region Serialized variables
+    
     [SerializeField] private Button destroyTrunk;
     [SerializeField] private Button destroyTree;
     [SerializeField] private TextMeshProUGUI levelLabel;
@@ -13,9 +15,17 @@ public class HudController : MonoBehaviour
     [SerializeField] private GameObject indicatorPrefab;
     [SerializeField] private Color stepCompleted;
 
+    #endregion
+
+    #region Private variables
+
     private Queue<Image> uncompletedIndicators;
     private Queue<Image> completedIndicators;
+
+    #endregion
     
+    #region Lifecycle methods
+
     private void OnEnable()
     {
         RoundController.updateButtonState += updateButtonState;
@@ -36,6 +46,10 @@ public class HudController : MonoBehaviour
         completedIndicators = new Queue<Image>();
     }
 
+    #endregion
+
+    #region Delegates response methods
+    
     private void updateButtonState(bool state)
     {
         destroyTrunk.interactable = state;
@@ -63,4 +77,6 @@ public class HudController : MonoBehaviour
         completedIndicators.Enqueue(indicator);
         indicator.color = stepCompleted;
     }
+    
+    #endregion
 }

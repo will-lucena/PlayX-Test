@@ -5,11 +5,17 @@ using Random = UnityEngine.Random;
 
 public class RoundController : MonoBehaviour
 {
+    #region Delegates
+
     public static Action<Transform> onTreeSpawn;
     public static Action<bool> updateButtonState;
     public static Action initRound;
     public static Action<int, int> onNextLevel;
     public static Action updateHudIndicator;
+
+    #endregion
+    
+    #region Serialized variables
 
     [Range(1, 10)] [SerializeField] 
     private int starterLevel;
@@ -21,11 +27,19 @@ public class RoundController : MonoBehaviour
     [SerializeField] private Transform treesParent;
     [SerializeField] private GameObject treePrefab;
     [SerializeField] private RoundAnimation animation;
-    
+
+    #endregion
+
+    #region Private variables
+
     private int currentTreeIndex;
     private int currentLevel;
     private int treesAmount;
     private Queue<GameObject> trees;
+
+    #endregion
+
+    #region Lifecycle methods
 
     private void Start()
     {
@@ -36,6 +50,8 @@ public class RoundController : MonoBehaviour
         onNextLevel?.Invoke(currentLevel, treesAmount);
     }
 
+    #endregion
+    
     public void translateToNextTree()
     {
         manageRound();
@@ -55,6 +71,8 @@ public class RoundController : MonoBehaviour
         currentTreeIndex++;
     }
 
+    #region UI methods
+
     public void onHitClick()
     {
         trees.Peek().GetComponent<TreeController>().dequeueTrunk();
@@ -65,6 +83,8 @@ public class RoundController : MonoBehaviour
         translateToNextTree();
     }
 
+    #endregion
+    
     private void translateCamera(Transform target)
     {
         onTreeSpawn?.Invoke(target);
