@@ -93,7 +93,7 @@ public class RoundController : MonoBehaviour
     {
         GameObject go = Instantiate(treePrefab, treesParent);
         TreeController tree = go.GetComponent<TreeController>();
-        tree.initTree(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightRange));
+        tree.init(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightRange));
         tree.onDestroy += translateToNextTree;
         tree.onAnimationEnd += translateCamera;
         trees.Enqueue(go);
@@ -114,6 +114,4 @@ public class RoundController : MonoBehaviour
     {
         onTreeDestroy?.Invoke(target);
     }
-    
-    
 }

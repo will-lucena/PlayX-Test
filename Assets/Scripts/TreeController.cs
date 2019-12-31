@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TreeController : MonoBehaviour
 {
-    //*
     public static Func<Vector3, Vector3, float, AnimationCurve, IEnumerator> onAnimate;
     public Action onDestroy;
     public Action<Transform> onAnimationEnd;
@@ -19,7 +18,7 @@ public class TreeController : MonoBehaviour
 
     private Queue<GameObject> trunks;
     
-    public void initTree(Vector3 position, int height)
+    public void init(Vector3 position, int height)
     {
         transform.localPosition = new Vector3(position.x, baseOffset, position.z);
         trunks = new Queue<GameObject>();
@@ -55,7 +54,6 @@ public class TreeController : MonoBehaviour
                 bounce.curve);
         }
         onAnimationEnd?.Invoke(transform);
-        yield break;
     }
 
     private IEnumerator collapseAnimation()
@@ -66,12 +64,13 @@ public class TreeController : MonoBehaviour
             yield return onAnimate.Invoke(transform.localPosition, finalPosition, collapse.durattion,
                 collapse.curve);
         }
-        yield break;
     }
     
     public void dequeueTrunk()
     {
-        Destroy(trunks.Dequeue());
+        GameObject trunk = trunks.Dequeue();
+        trunk.transform.SetParent(null);
+        trunk.GetComponent<Trunk>().explode();
         StopAllCoroutines();
         StartCoroutine(collapseAnimation());
         if (trunks.Count == 0)
@@ -79,5 +78,4 @@ public class TreeController : MonoBehaviour
             onDestroy?.Invoke();
         }
     }
-    /**/
 }

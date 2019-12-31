@@ -5,92 +5,37 @@ using UnityEngine;
 
 public class Trunk : MonoBehaviour
 {
-    /*
-    public static Action callParticles;
-    public Action onDestroy;
-    
-    [SerializeField] private Vector3 finalScale;
-    [SerializeField] private AnimationCurve scaleCurve;
+    [SerializeField] private Color flashColor;
+    [SerializeField] private Color defaultColor;
     [SerializeField] private AnimationCurve colorCurve;
-    [SerializeField] private Material material1;
-    [SerializeField] private Material material2;
+    [SerializeField] private AnimationCurve scaleCurve;
+    [SerializeField] private Vector3 finalScale;
+    [SerializeField] private float duration;
 
-    private Joint _joint;
+    private Renderer _renderer;
     private Vector3 _initialScale;
-    private int _clicks;
-    private Renderer _renderer;
-    
-    private void Awake()
-    {
-        _initialScale = transform.localScale;
-        //_joint = GetComponent<FixedJoint>();
-        _renderer = GetComponent<Renderer>();
-    }
-
-    public void linkToTrunkBelow(GameObject trunk)
-    {
-        //_joint.connectedBody = trunk.GetComponent<Rigidbody>();
-    }
-    
-    private IEnumerator takeDamage (AnimationCurve scaleCurve, AnimationCurve colorCurve)
-    {
-        callParticles?.Invoke();
-        float i = 0;
-        float rate = 1 / 0.2f;
-        while (i < 1) {
-            i += rate * Time.deltaTime;
-            transform.localScale = Vector3.Lerp (_initialScale, finalScale, scaleCurve.Evaluate (i));
-            _renderer.material.Lerp(material1, material2, colorCurve.Evaluate (i));
-            _renderer.material = material2;
-            //yield return new WaitUntil(() => _clicks > oldNumberOfClicks);
-            yield return null;
-        }
-        onDestroy?.Invoke();
-        Destroy(gameObject);
-    }
-    private void OnMouseDown()
-    {
-        StartCoroutine(takeDamage(scaleCurve, colorCurve ));
-    }
-    /**/
-
-    [SerializeField] private Material flashMaterial;
-    [SerializeField] private Material defaultMaterial;
-    [SerializeField] private AnimationCurve _colorCurve;
-    
-    private Renderer _renderer;
 
     public void explode()
     {
-        //flashMaterial.   
+        StartCoroutine(takeDamage());
     }
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
-        StartCoroutine(takeDamage(_colorCurve));
+        _initialScale = transform.localScale;
     }
 
-    private IEnumerator takeDamage (AnimationCurve colorCurve)
+    private IEnumerator takeDamage ()
     {
-        _renderer.material.EnableKeyword("_EMISSION");
         float i = 0;
-        float rate = 1 / 2f;
+        float rate = 1 / duration;
         while (i < 1) {
             i += rate * Time.deltaTime;
-            //transform.localScale = Vector3.Lerp (_initialScale, finalScale, scaleCurve.Evaluate (i));
-
-            _renderer.material.color = Color.Lerp(Color.white, Color.clear, colorCurve.Evaluate(i));
-            
-            //_renderer.material.Lerp(defaultMaterial, flashMaterial, colorCurve.Evaluate (i));
-            //_renderer.material.color = Color.Lerp()
-            //yield return new WaitUntil(() => _clicks > oldNumberOfClicks);
+            transform.localScale = Vector3.Lerp (_initialScale, finalScale, scaleCurve.Evaluate (i));
+            _renderer.material.color = Color.Lerp(defaultColor, flashColor, colorCurve.Evaluate(i));
             yield return null;
         }
-        _renderer.material.DisableKeyword("_EMISSION");
-        //onDestroy?.Invoke();
-        //Destroy(gameObject);
-        //_renderer.material = defaultMaterial;
+        Destroy(gameObject);
     }
-
 }

@@ -7,7 +7,6 @@ public class UpdateCameraFocus : MonoBehaviour
 {
     [SerializeField] private float duration;
     [SerializeField] private AnimationCurve curve;
-    [SerializeField] private Transform firstTarget;
     
     private Vector3 positionOffset;
 
@@ -24,7 +23,7 @@ public class UpdateCameraFocus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        positionOffset = transform.position - firstTarget.position;
+        positionOffset = transform.position - Vector3.zero;
     }
 
     private IEnumerator TranslateCamera (Transform target)
@@ -40,7 +39,6 @@ public class UpdateCameraFocus : MonoBehaviour
 
     public void changeFocus(Transform target)
     {
-        Debug.Log("update");
         StopAllCoroutines();
         StartCoroutine(TranslateCamera(target));
     }
