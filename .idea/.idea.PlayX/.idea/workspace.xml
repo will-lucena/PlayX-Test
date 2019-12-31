@@ -35,7 +35,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/HudController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Particles.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SimpleCameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoundAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Trunk.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scenes/Game.unity" root0="FORCE_HIGHLIGHTING" />
@@ -118,7 +117,7 @@
       <workItem from="1577669380708" duration="2908000" />
       <workItem from="1577718179775" duration="18949000" />
       <workItem from="1577805420981" duration="10443000" />
-      <workItem from="1577818879819" duration="1513000" />
+      <workItem from="1577818879819" duration="1823000" />
     </task>
     <servers />
   </component>

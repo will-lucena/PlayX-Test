@@ -4,7 +4,6 @@
     <e p="C:\Users\Will\.Rider2019.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Will\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_PlayX.-1487609215.00" t="ExcludeRecursive" />
     <e p="D:\workspaces\unity\PlayX" t="IncludeRecursive">
-      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
@@ -13,7 +12,6 @@
           <e p="Particles.cs" t="Include" />
           <e p="RoundAnimation.cs" t="Include" />
           <e p="RoundController.cs" t="Include" />
-          <e p="SimpleCameraController.cs" t="Include" />
           <e p="TreeAnimation.cs" t="Include" />
           <e p="TreeController.cs" t="Include" />
           <e p="Trunk.cs" t="Include" />
@@ -45,14 +43,6 @@
           </e>
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
-          </e>
-        </e>
-        <e p="TutorialInfo" t="Include">
-          <e p="Scripts" t="Include">
-            <e p="Editor" t="Include">
-              <e p="ReadmeEditor.cs" t="Include" />
-            </e>
-            <e p="Readme.cs" t="Include" />
           </e>
         </e>
       </e>
