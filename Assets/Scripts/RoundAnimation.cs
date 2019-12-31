@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +8,7 @@ public class RoundAnimation : MonoBehaviour
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private Image fadeImage;
     [SerializeField] private Color fade;
-
-
+    
     public IEnumerator roundTransition()
     {
         float i = 0;
