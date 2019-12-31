@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="AnimationDefinition.cs" t="Include" />
+          <e p="Particles.cs" t="Include" />
           <e p="RoundController.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
           <e p="TestScript.cs" t="Include" />

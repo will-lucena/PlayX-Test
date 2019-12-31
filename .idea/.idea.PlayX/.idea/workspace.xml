@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9853124-e7d4-457d-802a-0f48db17a733" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Trunk.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Trunk.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/new trunk.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/new trunk.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +25,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TrunkAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TestScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Particles.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SimpleCameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Trunk.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scenes/Game.unity" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -41,11 +40,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AnimationSO.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TreeAnimation.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Particles.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UpdateCameraFocus.cs" />
       </list>
     </option>
   </component>
@@ -104,7 +104,8 @@
       <workItem from="1577634420296" duration="14190000" />
       <workItem from="1577669341615" duration="16000" />
       <workItem from="1577669380708" duration="2908000" />
-      <workItem from="1577718179775" duration="18350000" />
+      <workItem from="1577718179775" duration="18949000" />
+      <workItem from="1577805420981" duration="3154000" />
     </task>
     <servers />
   </component>

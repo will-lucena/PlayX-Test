@@ -8,6 +8,7 @@ public class TreeController : MonoBehaviour
     public static Func<Vector3, Vector3, float, AnimationCurve, IEnumerator> onAnimate;
     public Action onDestroy;
     public Action<Transform> onAnimationEnd;
+    public static Action<Vector3> initParticles;
     
     [SerializeField] private GameObject trunkPrefab;
     [SerializeField] private float trunkOffset;
@@ -69,6 +70,7 @@ public class TreeController : MonoBehaviour
     public void dequeueTrunk()
     {
         GameObject trunk = trunks.Dequeue();
+        initParticles?.Invoke(transform.localPosition);
         trunk.transform.SetParent(null);
         trunk.GetComponent<Trunk>().explode();
         StopAllCoroutines();
