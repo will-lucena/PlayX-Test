@@ -9,14 +9,14 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="AnimationDefinition.cs" t="Include" />
+          <e p="HudController.cs" t="Include" />
           <e p="Particles.cs" t="Include" />
+          <e p="RoundAnimation.cs" t="Include" />
           <e p="RoundController.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
-          <e p="TestScript.cs" t="Include" />
           <e p="TreeAnimation.cs" t="Include" />
           <e p="TreeController.cs" t="Include" />
           <e p="Trunk.cs" t="Include" />
-          <e p="TrunkAnimation.cs" t="Include" />
           <e p="UpdateCameraFocus.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">

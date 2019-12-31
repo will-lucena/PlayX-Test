@@ -59,12 +59,14 @@ public class TreeController : MonoBehaviour
 
     private IEnumerator collapseAnimation()
     {
+        RoundController.updateButtonState?.Invoke(false);
         if (onAnimate != null)
         {
             Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - trunkOffset, transform.localPosition.z);
             yield return onAnimate.Invoke(transform.localPosition, finalPosition, collapse.durattion,
                 collapse.curve);
         }
+        RoundController.updateButtonState?.Invoke(true);
     }
     
     public void dequeueTrunk()

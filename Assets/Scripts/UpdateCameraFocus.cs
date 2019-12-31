@@ -12,18 +12,20 @@ public class UpdateCameraFocus : MonoBehaviour
 
     private void OnEnable()
     {
-        RoundController.onTreeDestroy += changeFocus;
+        RoundController.onTreeSpawn += changeFocus;
+        RoundController.initRound += resetCamera;
     }
 
     private void OnDisable()
     {
-        RoundController.onTreeDestroy -= changeFocus;
+        RoundController.onTreeSpawn -= changeFocus;
+        RoundController.initRound -= resetCamera;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        positionOffset = transform.position - Vector3.zero;
+        positionOffset = transform.localPosition - Vector3.zero;
     }
 
     private IEnumerator TranslateCamera (Transform target)
@@ -42,5 +44,10 @@ public class UpdateCameraFocus : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(TranslateCamera(target));
+    }
+
+    public void resetCamera()
+    {
+        transform.localPosition = positionOffset;
     }
 }

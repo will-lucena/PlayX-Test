@@ -7,93 +7,50 @@ using Random = UnityEngine.Random;
 
 public class RoundController : MonoBehaviour
 {
-    /*
-    [SerializeField] private GameObject trunkPrefab;
-    [SerializeField] private float trunkOffset;
-    [SerializeField] private int amountOfTrunks;
-    [SerializeField] private TrunkAnimation treeParent;
-    [SerializeField] private ParticleSystem particles;
-
-    public static Action callParticles;
-    
-    // Start is called before the first frame update
-    private void Start()
-    {
-        //createTree(amountOfTrunks);
-        callParticles += enableParticles;
-    }
-
-    public void createTree(int height)
-    {
-        for (int i = 0; i < height; i++)
-        {
-            Instantiate(trunkPrefab, new Vector3(0, i * trunkOffset, 0), Quaternion.Euler(90, 0, 0), treeParent.transform);
-        }
-
-        treeParent.updateInitialPosition(new Vector3(0, -trunkOffset * amountOfTrunks, 0));
-        treeParent.startAnimation();
-    }
-    
-    public void enableParticles()
-    {
-        if (particles.isEmitting)
-        {
-            particles.Stop();
-        }
-        particles.Play();
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.name == "Plane")
-        {
-            callParticles();
-        }
-    }
-    
-    /**/
-    public static Action<Transform> onTreeDestroy;
+    public static Action<Transform> onTreeSpawn;
+    public static Action<bool> updateButtonState;
+    public static Action initRound;
+    public static Action<int, int> onNextLevel;
+    public static Action updateHudIndicator;
 
     [Range(1, 10)] [SerializeField] 
-    private int currentLevel;
+    private int starterLevel;
     [Range(1, 3)] [SerializeField] 
     private int baseNumberOFTrees;
     [Range(2, 20)] [SerializeField]
-    private int treeHeightRange;
-    [SerializeField] private ParticleSystem particles;
+    private int treeHeightMax;
     [SerializeField] private Vector3 spaceBetweenTrees;
     [SerializeField] private Transform treesParent;
     [SerializeField] private GameObject treePrefab;
-
+    [SerializeField] private RoundAnimation animation;
+    
     private int currentTreeIndex;
+    private int currentLevel;
+    private int treesAmount;
     private Queue<GameObject> trees;
 
     private void Start()
     {
+        currentLevel = starterLevel;
+        treesAmount = Random.Range(baseNumberOFTrees, baseNumberOFTrees * currentLevel);
         trees = new Queue<GameObject>();
         initTree();
-    }
-
-    public void enableParticles()
-    {
-        if (particles.isEmitting)
-        {
-            particles.Stop();
-        }
-        particles.Play();
+        onNextLevel?.Invoke(currentLevel, treesAmount);
     }
 
     public void translateToNextTree()
     {
+        manageRound();
         Destroy(trees.Dequeue());
         initTree();
     }
     
     private void initTree()
     {
+        updateButtonState?.Invoke(false);
         GameObject go = Instantiate(treePrefab, treesParent);
         TreeController tree = go.GetComponent<TreeController>();
-        tree.init(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightRange));
+        tree.init(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightMax));
         tree.onDestroy += translateToNextTree;
         tree.onAnimationEnd += translateCamera;
         trees.Enqueue(go);
@@ -107,11 +64,26 @@ public class RoundController : MonoBehaviour
 
     public void onSpawnClick()
     {
-        initTree();
+        translateToNextTree();
     }
 
     private void translateCamera(Transform target)
     {
-        onTreeDestroy?.Invoke(target);
+        onTreeSpawn?.Invoke(target);
+        updateButtonState?.Invoke(true);
+    }
+
+    private void manageRound()
+    {
+        updateHudIndicator?.Invoke();
+        if (currentTreeIndex >= treesAmount)
+        {
+            StartCoroutine(animation.roundTransition());
+            currentTreeIndex = 0;
+            currentLevel++;
+            treesAmount = Random.Range(baseNumberOFTrees, baseNumberOFTrees * currentLevel);
+            initRound?.Invoke();
+            onNextLevel?.Invoke(currentLevel, treesAmount);
+        }
     }
 }
