@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class RoundController : MonoBehaviour
 {
+    //To avoid script imports I used some delegates, so it won't crash if the other scripts doesn't exist
     #region Delegates
 
     public static Action<Transform> onTreeSpawn;
@@ -12,6 +13,7 @@ public class RoundController : MonoBehaviour
     public static Action initRound;
     public static Action<int, int> onNextLevel;
     public static Action updateHudIndicator;
+    public static Action onDestroyTrunk;
 
     #endregion
     
@@ -20,13 +22,13 @@ public class RoundController : MonoBehaviour
     [Range(1, 10)] [SerializeField] 
     private int starterLevel;
     [Range(1, 3)] [SerializeField] 
-    private int baseNumberOFTrees;
+    private int baseNumberOfTrees;
     [Range(2, 20)] [SerializeField]
     private int treeHeightMax;
     [SerializeField] private Vector3 spaceBetweenTrees;
     [SerializeField] private Transform treesParent;
     [SerializeField] private GameObject treePrefab;
-    [SerializeField] private RoundAnimation animation;
+    [SerializeField] private RoundAnimation animationController;
 
     #endregion
 
@@ -35,7 +37,6 @@ public class RoundController : MonoBehaviour
     private int currentTreeIndex;
     private int currentLevel;
     private int treesAmount;
-    private Queue<GameObject> trees;
 
     #endregion
 
@@ -44,64 +45,73 @@ public class RoundController : MonoBehaviour
     private void Start()
     {
         currentLevel = starterLevel;
-        treesAmount = Random.Range(baseNumberOFTrees, baseNumberOFTrees * currentLevel);
-        trees = new Queue<GameObject>();
+        // The number of trees in each round is randomized between the base value and the base value multiplied by the current level
+        treesAmount = Random.Range(baseNumberOfTrees, baseNumberOfTrees * currentLevel);
         initTree();
         onNextLevel?.Invoke(currentLevel, treesAmount);
     }
 
     #endregion
     
-    public void translateToNextTree()
-    {
-        manageRound();
-        Destroy(trees.Dequeue());
-        initTree();
-    }
-    
     private void initTree()
     {
         updateButtonState?.Invoke(false);
         GameObject go = Instantiate(treePrefab, treesParent);
         TreeController tree = go.GetComponent<TreeController>();
+        //The tree height will be a random value between 1 and the max height
         tree.init(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightMax));
         tree.onDestroy += translateToNextTree;
+        //To move the camera only after the other tree completely spawn
         tree.onAnimationEnd += translateCamera;
-        trees.Enqueue(go);
+        //Increase the level progression
         currentTreeIndex++;
     }
-
-    #region UI methods
-
-    public void onHitClick()
-    {
-        trees.Peek().GetComponent<TreeController>().dequeueTrunk();
-    }
-
-    public void onSpawnClick()
-    {
-        translateToNextTree();
-    }
-
-    #endregion
     
-    private void translateCamera(Transform target)
-    {
-        onTreeSpawn?.Invoke(target);
-        updateButtonState?.Invoke(true);
-    }
-
+    // If all trees had being destroyed, the scenario is reset while a transaction plays
+    // The reset upgrade the level and reset progression level variables
     private void manageRound()
     {
         updateHudIndicator?.Invoke();
         if (currentTreeIndex >= treesAmount)
         {
-            StartCoroutine(animation.roundTransition());
+            animationController.startAnimation();
             currentTreeIndex = 0;
             currentLevel++;
-            treesAmount = Random.Range(baseNumberOFTrees, baseNumberOFTrees * currentLevel);
+            treesAmount = Random.Range(baseNumberOfTrees, baseNumberOfTrees * currentLevel);
             initRound?.Invoke();
             onNextLevel?.Invoke(currentLevel, treesAmount);
         }
     }
+
+    #region Deletages response methods
+
+    private void translateCamera(Transform target)
+    {
+        onTreeSpawn?.Invoke(target);
+        updateButtonState?.Invoke(true);
+    }
+        
+    public void translateToNextTree()
+    {
+        manageRound();
+        initTree();
+    }
+
+    #endregion
+
+    #region UI methods
+    
+    public void onHitClick()
+    {
+        onDestroyTrunk?.Invoke();
+    }
+
+    public void onSpawnClick()
+    {
+        Destroy(treesParent.GetChild(0).gameObject);
+        translateToNextTree();
+    }
+
+    #endregion
+    
 }

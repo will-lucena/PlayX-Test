@@ -13,7 +13,7 @@ public class UpdateCameraFocus : MonoBehaviour
 
     #region Private variables
 
-    private Vector3 positionOffset;
+    private Vector3 _positionOffset;
 
     #endregion
 
@@ -22,18 +22,19 @@ public class UpdateCameraFocus : MonoBehaviour
     private void OnEnable()
     {
         RoundController.onTreeSpawn += changeFocus;
-        RoundController.initRound += resetCamera;
+        RoundController.initRound += restoreCameraInitialPosition;
     }
 
     private void OnDisable()
     {
         RoundController.onTreeSpawn -= changeFocus;
-        RoundController.initRound -= resetCamera;
+        RoundController.initRound -= restoreCameraInitialPosition;
     }
     
     void Start()
     {
-        positionOffset = transform.localPosition - Vector3.zero;
+        //With this offset the distance between the camera and the current tree will be the same as the initial even after the translation
+        _positionOffset = transform.localPosition - Vector3.zero;
     }
 
     #endregion
@@ -42,27 +43,28 @@ public class UpdateCameraFocus : MonoBehaviour
 
     public void changeFocus(Transform target)
     {
-        StopAllCoroutines();
-        StartCoroutine(TranslateCamera(target));
+        StartCoroutine(translateCamera(target));
     }
 
-    public void resetCamera()
+    public void restoreCameraInitialPosition()
     {
-        transform.localPosition = positionOffset;
+        transform.localPosition = _positionOffset;
     }
 
     #endregion
 
     #region Coroutines
 
-    private IEnumerator TranslateCamera (Transform target)
+    //The animation will play based on the serialized curve and duration
+    private IEnumerator translateCamera (Transform target)
     {
         float i = 0;
         float rate = 1 / duration;
-        Vector3 targetPosition = new Vector3(target.localPosition.x, 0, target.localPosition.z);
+        var localPosition = target.localPosition;
+        Vector3 targetPosition = new Vector3(localPosition.x, 0, localPosition.z);
         while (i < 1) {
             i += rate * Time.deltaTime;
-            transform.localPosition = Vector3.Lerp (transform.localPosition, targetPosition + positionOffset, curve.Evaluate (i));
+            transform.localPosition = Vector3.Lerp (transform.localPosition, targetPosition + _positionOffset, curve.Evaluate (i));
             yield return null;
         }
     }

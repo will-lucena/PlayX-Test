@@ -40,7 +40,8 @@ public class Particles : MonoBehaviour
 
     #region Delegates response methods
 
-    public void init(Vector3 position)
+    //The particles will be initialized always in the ground height
+    private void init(Vector3 position)
     {
         ParticleSystem particles = Instantiate(particlePrefab);
         particles.transform.localPosition = new Vector3(position.x, 0, position.z);

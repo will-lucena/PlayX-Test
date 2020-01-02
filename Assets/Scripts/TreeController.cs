@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TreeController : MonoBehaviour
 {
+    //To avoid script imports I used some delegates, so it won't crash if the other scripts doesn't exist
     #region Delagates
 
     public static Func<Vector3, Vector3, float, AnimationCurve, IEnumerator> onAnimate;
@@ -27,75 +28,97 @@ public class TreeController : MonoBehaviour
 
     #region Private variables
 
-    private Queue<GameObject> trunks;
+    private Queue<GameObject> _trunks;
+
+    #endregion
+
+    #region Lifecycle methods
+
+    private void OnEnable()
+    {
+        RoundController.onDestroyTrunk += dequeueTrunk;
+    }
+
+    private void OnDisable()
+    {
+        RoundController.onDestroyTrunk -= dequeueTrunk;
+    }
 
     #endregion
     
     #region Coroutines
 
+    //The first part of the tree spawn animation, when it finishes call the second
     private IEnumerator growthAnimation(int height)
+    {
+        if (onAnimate != null)
         {
-            if (onAnimate != null)
-            {
-                Vector3 initialPosition = new Vector3(transform.localPosition.x, -trunkOffset * height, transform.localPosition.z);
-                Vector3 finalPosition = new Vector3(transform.localPosition.x, baseOffset, transform.localPosition.z);
-                yield return onAnimate.Invoke(initialPosition, finalPosition, popup.durattion,
-                    popup.curve);
-            }
-            yield return bounceAnimation();
+            var localPosition = transform.localPosition;
+            Vector3 initialPosition = new Vector3(localPosition.x, -trunkOffset * height, localPosition.z);
+            Vector3 finalPosition = new Vector3(localPosition.x, baseOffset, localPosition.z);
+            yield return onAnimate.Invoke(initialPosition, finalPosition, popup.durattion,
+                popup.curve);
         }
-    
-        private IEnumerator bounceAnimation()
+        yield return bounceAnimation();
+    }
+
+    //The second part of the tree spawn animation, when it finishes call notify the roundController to move the camera
+    private IEnumerator bounceAnimation()
+    {
+        if (onAnimate != null)
         {
-            if (onAnimate != null)
-            {
-                Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 2f, transform.localPosition.z);
-                yield return onAnimate.Invoke(transform.localPosition, finalPosition, bounce.durattion,
-                    bounce.curve);
-            }
-            onAnimationEnd?.Invoke(transform);
+            var localPosition = transform.localPosition;
+            Vector3 finalPosition = new Vector3(localPosition.x, localPosition.y + 2f, localPosition.z);
+            yield return onAnimate.Invoke(localPosition, finalPosition, bounce.durattion,
+                bounce.curve);
         }
-    
-        private IEnumerator collapseAnimation()
+        onAnimationEnd?.Invoke(transform);
+    }
+
+    //The animation played when one trunk is destroyed, the ui buttons are disabled while the animation runs
+    private IEnumerator collapseAnimation()
+    {
+        RoundController.updateButtonState?.Invoke(false);
+        if (onAnimate != null)
         {
-            RoundController.updateButtonState?.Invoke(false);
-            if (onAnimate != null)
-            {
-                Vector3 finalPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - trunkOffset, transform.localPosition.z);
-                yield return onAnimate.Invoke(transform.localPosition, finalPosition, collapse.durattion,
-                    collapse.curve);
-            }
-            RoundController.updateButtonState?.Invoke(true);
+            var localPosition = transform.localPosition;
+            Vector3 finalPosition = new Vector3(localPosition.x, localPosition.y - trunkOffset, localPosition.z);
+            yield return onAnimate.Invoke(localPosition, finalPosition, collapse.durattion,
+                collapse.curve);
         }
+        RoundController.updateButtonState?.Invoke(true);
+    }
 
     #endregion
-    
+
+    #region Delegates response methods
+
     public void init(Vector3 position, int height)
     {
         transform.localPosition = new Vector3(position.x, baseOffset, position.z);
-        trunks = new Queue<GameObject>();
+        _trunks = new Queue<GameObject>();
         for (int i = 0; i < height; i++)
         {
             GameObject trunk = Instantiate(trunkPrefab, transform);
             trunk.transform.localPosition = new Vector3(0, i * trunkOffset, 0);
             trunk.transform.localRotation = Quaternion.Euler(90, 0, 0);
-            trunks.Enqueue(trunk);
+            _trunks.Enqueue(trunk);
         }
-        StopAllCoroutines();
         StartCoroutine(growthAnimation(height));
     }
     
-    public void dequeueTrunk()
+    //Remove the bottom trunk, animating the process, if the last trunk was removed, notify the listener
+    private void dequeueTrunk()
     {
-        GameObject trunk = trunks.Dequeue();
+        GameObject trunk = _trunks.Dequeue();
         initParticles?.Invoke(transform.localPosition);
-        trunk.transform.SetParent(null);
         trunk.GetComponent<Trunk>().explode();
-        StopAllCoroutines();
         StartCoroutine(collapseAnimation());
-        if (trunks.Count == 0)
+        if (_trunks.Count == 0)
         {
             onDestroy?.Invoke();
         }
     }
+
+    #endregion
 }

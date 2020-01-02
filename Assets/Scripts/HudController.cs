@@ -56,6 +56,7 @@ public class HudController : MonoBehaviour
         destroyTree.interactable = state;
     }
 
+    //When level ends, reset the level label and the indicators
     private void updateLevel(int level, int treesAmount)
     {
         while (completedIndicators.Count > 0)

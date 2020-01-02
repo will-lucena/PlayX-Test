@@ -7,19 +7,20 @@ public class TreeAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        TreeController.onAnimate += TranslateObject;
+        TreeController.onAnimate += translateObject;
     }
 
     private void OnDisable()
     {
-        TreeController.onAnimate -= TranslateObject;
+        TreeController.onAnimate -= translateObject;
     }
 
     #endregion
 
     #region Delegates response methods
 
-    private IEnumerator TranslateObject (Vector3 initialPosition, Vector3 finalPosition, float duration, AnimationCurve curve)
+    //The animation will play based on the serialized curve and duration
+    private IEnumerator translateObject (Vector3 initialPosition, Vector3 finalPosition, float duration, AnimationCurve curve)
     {
         float i = 0;
         float rate = 1 / duration;

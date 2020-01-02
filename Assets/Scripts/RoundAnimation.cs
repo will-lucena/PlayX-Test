@@ -13,9 +13,15 @@ public class RoundAnimation : MonoBehaviour
 
     #endregion
 
+    public void startAnimation()
+    {
+        StartCoroutine(roundTransition());
+    }
+    
     #region Coroutines
 
-    public IEnumerator roundTransition()
+    //The animation will play based on the serialized curve and duration
+    private IEnumerator roundTransition()
     {
         float i = 0;
         float rate = 1 / duration;
@@ -25,6 +31,6 @@ public class RoundAnimation : MonoBehaviour
             yield return null;
         }
     }
-
+    
     #endregion
 }

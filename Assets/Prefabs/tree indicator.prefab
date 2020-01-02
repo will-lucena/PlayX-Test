@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6102642244558696461}
   - component: {fileID: 9062932930215917471}
   m_Layer: 5
-  m_Name: tree hud
+  m_Name: tree indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
