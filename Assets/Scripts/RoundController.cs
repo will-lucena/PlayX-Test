@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -37,6 +38,7 @@ public class RoundController : MonoBehaviour
     private int currentTreeIndex;
     private int currentLevel;
     private int treesAmount;
+    private Queue<TreeController> _trees;
 
     #endregion
 
@@ -45,6 +47,7 @@ public class RoundController : MonoBehaviour
     private void Start()
     {
         currentLevel = starterLevel;
+        _trees = new Queue<TreeController>();
         // The number of trees in each round is randomized between the base value and the base value multiplied by the current level
         treesAmount = Random.Range(baseNumberOfTrees, baseNumberOfTrees * currentLevel);
         initTree();
@@ -63,6 +66,7 @@ public class RoundController : MonoBehaviour
         tree.onDestroy += translateToNextTree;
         // To move the camera only after the other tree completely spawn
         tree.onAnimationEnd += translateCamera;
+        _trees.Enqueue(tree);
         // Increase the level progression
         currentTreeIndex++;
     }
@@ -93,6 +97,10 @@ public class RoundController : MonoBehaviour
         
     public void translateToNextTree()
     {
+        while (_trees.Count > 0)
+        {
+            Destroy(_trees.Dequeue().gameObject);
+        }
         manageRound();
         initTree();
     }
@@ -108,8 +116,12 @@ public class RoundController : MonoBehaviour
 
     public void onSpawnClick()
     {
-        Destroy(treesParent.GetChild(0).gameObject);
         translateToNextTree();
+    }
+
+    public void quit()
+    {
+        Application.Quit();
     }
 
     #endregion

@@ -4,13 +4,10 @@
     <list default="true" id="b9853124-e7d4-457d-802a-0f48db17a733" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PlayX/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/Bounce.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/Bounce.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/Collapse.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/Collapse.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/Linear.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/Linear.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HudController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HudController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,8 +49,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Trunk.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AnimationDefinition.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/HudController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TreeController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/RoundController.cs" />
       </list>
     </option>
   </component>
@@ -115,7 +112,7 @@
       <workItem from="1577718179775" duration="18949000" />
       <workItem from="1577805420981" duration="10443000" />
       <workItem from="1577818879819" duration="6308000" />
-      <workItem from="1577986741373" duration="11954000" />
+      <workItem from="1577986741373" duration="12638000" />
     </task>
     <servers />
   </component>
