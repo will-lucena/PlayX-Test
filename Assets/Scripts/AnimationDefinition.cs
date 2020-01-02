@@ -3,9 +3,9 @@
 [CreateAssetMenu(fileName = "mew animation", menuName = "Animations")]
 public class AnimationDefinition : ScriptableObject
 {
-    [SerializeField] private float _durattion;
+    [SerializeField] private float _duration;
     [SerializeField] private AnimationCurve _curve;
     
-    public float durattion => _durattion;
+    public float duration => _duration;
     public AnimationCurve curve => _curve;
 }

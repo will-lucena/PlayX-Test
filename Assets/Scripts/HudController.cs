@@ -30,14 +30,14 @@ public class HudController : MonoBehaviour
     {
         RoundController.updateButtonState += updateButtonState;
         RoundController.onNextLevel += updateLevel;
-        RoundController.updateHudIndicator += dequeueImage;
+        RoundController.updateHudIndicator += updateIndicator;
     }
 
     private void OnDisable()
     {
         RoundController.updateButtonState -= updateButtonState;
         RoundController.onNextLevel -= updateLevel;
-        RoundController.updateHudIndicator -= dequeueImage;
+        RoundController.updateHudIndicator -= updateIndicator;
     }
 
     private void Start()
@@ -71,8 +71,8 @@ public class HudController : MonoBehaviour
             uncompletedIndicators.Enqueue(image);
         }
     }
-
-    private void dequeueImage()
+    
+    private void updateIndicator()
     {
         Image indicator = uncompletedIndicators.Dequeue();
         completedIndicators.Enqueue(indicator);

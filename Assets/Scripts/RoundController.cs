@@ -58,16 +58,16 @@ public class RoundController : MonoBehaviour
         updateButtonState?.Invoke(false);
         GameObject go = Instantiate(treePrefab, treesParent);
         TreeController tree = go.GetComponent<TreeController>();
-        //The tree height will be a random value between 1 and the max height
+        // The tree height will be a random value between 1 and the max height
         tree.init(spaceBetweenTrees * currentTreeIndex, Random.Range(1, treeHeightMax));
         tree.onDestroy += translateToNextTree;
-        //To move the camera only after the other tree completely spawn
+        // To move the camera only after the other tree completely spawn
         tree.onAnimationEnd += translateCamera;
-        //Increase the level progression
+        // Increase the level progression
         currentTreeIndex++;
     }
     
-    // If all trees had being destroyed, the scenario is reset while a transaction plays
+    // If all trees had being destroyed, the scenario is reset while a transition animation occurs
     // The reset upgrade the level and reset progression level variables
     private void manageRound()
     {

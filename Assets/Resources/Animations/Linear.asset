@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a99865ab6573c34d9f07b7bfae934e7, type: 3}
   m_Name: Linear
   m_EditorClassIdentifier: 
-  _initialPosition: {x: 0, y: -200, z: 0}
-  _finalPosition: {x: 0, y: 3, z: 0}
-  _durattion: 1
+  _duration: 0.3
   _curve:
     serializedVersion: 2
     m_Curve:

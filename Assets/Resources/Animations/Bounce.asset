@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a99865ab6573c34d9f07b7bfae934e7, type: 3}
   m_Name: Bounce
   m_EditorClassIdentifier: 
-  _initialPosition: {x: 0, y: 3, z: 0}
-  _finalPosition: {x: 0, y: 5, z: 0}
-  _durattion: 0.3
+  _duration: 0.2
   _curve:
     serializedVersion: 2
     m_Curve:

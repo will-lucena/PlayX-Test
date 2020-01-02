@@ -36,12 +36,12 @@ public class TreeController : MonoBehaviour
 
     private void OnEnable()
     {
-        RoundController.onDestroyTrunk += dequeueTrunk;
+        RoundController.onDestroyTrunk += destroyTrunk;
     }
 
     private void OnDisable()
     {
-        RoundController.onDestroyTrunk -= dequeueTrunk;
+        RoundController.onDestroyTrunk -= destroyTrunk;
     }
 
     #endregion
@@ -56,7 +56,7 @@ public class TreeController : MonoBehaviour
             var localPosition = transform.localPosition;
             Vector3 initialPosition = new Vector3(localPosition.x, -trunkOffset * height, localPosition.z);
             Vector3 finalPosition = new Vector3(localPosition.x, baseOffset, localPosition.z);
-            yield return onAnimate.Invoke(initialPosition, finalPosition, popup.durattion,
+            yield return onAnimate.Invoke(initialPosition, finalPosition, popup.duration,
                 popup.curve);
         }
         yield return bounceAnimation();
@@ -69,7 +69,7 @@ public class TreeController : MonoBehaviour
         {
             var localPosition = transform.localPosition;
             Vector3 finalPosition = new Vector3(localPosition.x, localPosition.y + 2f, localPosition.z);
-            yield return onAnimate.Invoke(localPosition, finalPosition, bounce.durattion,
+            yield return onAnimate.Invoke(localPosition, finalPosition, bounce.duration,
                 bounce.curve);
         }
         onAnimationEnd?.Invoke(transform);
@@ -83,7 +83,7 @@ public class TreeController : MonoBehaviour
         {
             var localPosition = transform.localPosition;
             Vector3 finalPosition = new Vector3(localPosition.x, localPosition.y - trunkOffset, localPosition.z);
-            yield return onAnimate.Invoke(localPosition, finalPosition, collapse.durattion,
+            yield return onAnimate.Invoke(localPosition, finalPosition, collapse.duration,
                 collapse.curve);
         }
         RoundController.updateButtonState?.Invoke(true);
@@ -108,7 +108,7 @@ public class TreeController : MonoBehaviour
     }
     
     //Remove the bottom trunk, animating the process, if the last trunk was removed, notify the listener
-    private void dequeueTrunk()
+    private void destroyTrunk()
     {
         GameObject trunk = _trunks.Dequeue();
         initParticles?.Invoke(transform.localPosition);
