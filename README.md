@@ -1,4 +1,4 @@
-# PlayXTrial
+# PlayX Test
 
 - [Windows version](https://github.com/will-lucena/PlayX-Test/releases/download/1.0.0/Windows.zip)
 
