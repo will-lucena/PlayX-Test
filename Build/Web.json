@@ -1,0 +1,13 @@
+{
+"companyName": "Will games",
+"productName": "PlayX Test",
+"dataUrl": "Web.data.unityweb",
+"wasmCodeUrl": "Web.wasm.code.unityweb",
+"wasmFrameworkUrl": "Web.wasm.framework.unityweb",
+"TOTAL_MEMORY": 16777216,
+"graphicsAPI": ["WebGL 2.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"}
+}
